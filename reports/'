@@ -1,0 +1,360 @@
+<odoo>
+   <data>
+   
+       <template id="libitco_custom_quotation" inherit_id="sale.report_saleorder_document">
+         <xpath expr="//t[@t-set='address']" position="replace">
+        </xpath>
+        
+        <xpath expr="//div[@class='page']" position="replace">
+          <div>
+           <div class="page">
+             <div class="oe_structure"/>
+
+                 <table style="width:100%;height:15px;">
+                    <tr>
+                      <td></td>
+                    </tr>
+                 </table>
+
+                 <table style="width:100%;margin-top:20px;background-color:#ADD8E6;">
+                    <tr>
+                       <td style="text-align:center;font-size:35px;">
+                          <span>
+                           <strong>
+                                Quotation
+                           </strong>
+                        </span>
+                       </td>
+                    </tr>
+                 </table>
+
+
+                 <table style="width:100%;margin-top:20px;">
+                    <tr>
+                       <td>
+                          <span>
+                           <strong>
+                           <address t-field="doc.partner_id" 
+                                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                           <div t-if="doc.partner_id.vat" class="mt16">
+                              <t t-esc="doc.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="doc.partner_id.vat"/>
+                           </div>
+                           </strong>
+                        </span>
+                       </td>
+                    </tr>
+                 </table>
+
+
+                 <table style="width:100%;margin-top:20px;">
+                    <tr>
+		                <td><b>Your Ref:&amp;nbsp;</b><span t-field="doc.client_order_ref" style="text-align:left;"/></td>
+		                <td style="float:right;"><strong>Date:</strong>&amp;nbsp;<span t-field="doc.date_order" style="text-align:left;"/></td>
+                    </tr>
+                    
+                    <tr>
+		                <td><b>Our Ref:&amp;nbsp;<span t-field="doc.name" style="text-align:left;"/></b></td>
+		                <td></td>
+		                <td></td>
+		                <td></td>
+                    </tr>
+                 </table>
+
+			     <table style="width:100%;margin-top:20px;">
+			       <tr>
+			          <td>Dear <strong><!--span t-field="doc.partner_id.name"/-->Ladies &amp; Gentlemen,</strong></td>
+			       </tr>
+			       <tr>
+			          <td><span>As per your RFQ please find attached our quotation for your filters</span></td>
+			       </tr>
+			     </table>
+             
+                 
+             
+                 <table class="table border-black" style="margin-top:20px;">
+                    <thead>
+                       <tr style="border:1px solid;background-color:#ADD8E6;">
+                          <!--th style="padding:5px;border:1px solid;">lt</th-->
+                          <th class="text-left" style="width:13.3%">Your P/N</th>
+                          <th class="text-left" style="width:18.3%">Description</th>
+                          <th class="text-left" style="width:17.3%">FleetGuard P/N</th>
+                          <th class="text-center" style="width:8.3%">QTY</th>
+                          <th class="text-center" style="width:14.3%">UNIT</th>
+                          <!--th name="th_discount" t-if="display_discount" class="text-right" groups="product.group_discount_per_so_line">
+                            <span>Disc.%</span>
+                        </th-->
+                          <th class="text-center" style="width:14.3%">TOTAL</th>
+                          <th class="text-left" style="width:14.3%">Stock Kla</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       
+                       <t t-set="current_subtotal" t-value="0"/>
+
+                    <t t-foreach="doc.order_line" t-as="line">
+
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                            <!--td style="padding:5px;border:1px solid;">
+                              <span t-field="line.sequence"/>
+                            </td-->
+                            <td style="width:13.3%">
+                              <span t-field='line.yrprtno'/>
+                            </td>
+                            <t t-if="not line.display_type">
+                                <td style="width:18.3%"><span t-field="line.product_id.description_sale"/></td>
+                                <td style="width:17.3%">
+                                  <span t-field='line.product_id.name'/>
+                                </td>
+                                <td style="width:8.3%" class="text-center">
+                                    <span t-field="line.product_uom_qty"/>
+                                </td>
+                                
+                                <td class="text-center" style="width:14.3%">
+                                    <span t-field="line.price_unit" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                </td>
+                                <!--td t-if="display_discount" class="text-right">
+                                    <span t-field="line.discount"/>
+                                </td-->
+                                <td class="text-center o_price_total" style="width:14.3%">
+                                    <span t-field="line.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;False&quot;}" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <span t-field="line.price_total" t-field-options="{&quot;widget&quot;: &quot;False&quot;}" groups="account.group_show_line_subtotals_tax_included"/>
+                                </td>
+                                <td  class="text-center" style="width:14.3%">
+                                  <t t-if="line.avail">
+                                     <span>Yes</span>
+                                  </t>
+                                  <t t-else="">
+                                     <span>No</span>
+                                  </t>
+                                </td>
+                            </t>
+                            <t t-if="line.display_type == 'line_section'">
+                                <td colspan="99">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-if="line.display_type == 'line_note'">
+                                <td colspan="99">
+                                    <span t-field="line.name"/>
+                                </td>
+                            </t>
+                        </tr>
+
+                        <t t-if="current_section and (line_last or doc.order_line[line_index+1].display_type == 'line_section')">
+                            <tr class="is-subtotal text-right">
+                                <td colspan="99">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <!--span
+                                        t-esc="current_subtotal"
+                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'
+                                    /-->
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                    </tbody>
+                 </table>
+                 
+                 <div class="clearfix" name="so_total_summary">
+                <div id="total" class="row" name="total">
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                        <table class="table table-sm" style="background-color:#ADD8E6;">
+                            <tr class="border-black o_subtotal">
+                                <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
+                                <td name="td_amount_untaxed" class="text-right">
+                                    <span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                </td>
+                            </tr>
+                            <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
+                                <tr style="">
+                                    <t t-if="amount_by_group[5] == 1 and doc.amount_untaxed == amount_by_group[2]">
+                                        <td name="td_amount_by_group_label_3">
+                                            <span>VAT</span>
+                                        </td>
+                                        <td name="td_amount_by_group_3" class="text-right o_price_total">
+						<span t-esc="amount_by_group[1]" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/> <!--t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/-->
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                        <td name="td_amount_by_group_label">
+                                            <span t-esc="amount_by_group[0]" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                        </td>
+                                        <td name="td_amount_by_group" class="text-right o_price_total">
+						<span t-esc="amount_by_group[1]" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/> <!--t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/-->
+                                        </td>
+                                    </t>
+                                </tr>
+                            </t>
+                            <tr class="border-black o_total">
+                                <td name="td_amount_total_label"><strong>Total</strong></td>
+                                <td name="td_amount_total" class="text-right">
+                                    <span t-field="doc.amount_total" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                 
+                 
+                 
+                 <div>
+                 
+                    <span><strong><u>NOTE:</u></strong></span><br/>
+                    
+                    <ul>
+                    
+                        <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
+                        <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
+                        <li>Prices are in UGX, excl VAT, exworks our kampala warehouse. UGX prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
+
+                    </ul>
+                    <p>We trust to have been of service with the above and look forward to your favourable reply</p>                 
+                 </div>
+                 
+                 
+                 <table style="width:100%;margin-top:5px;">
+                    <tr>
+                      <th>
+                         <span>Kind Regards:</span>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+			      <span t-field="doc.user_id"/><br/>
+			      <span t-field="doc.user_id.employee_id.job_id.name"/>
+                      </td>
+                    </tr>
+                 </table>
+             
+             <div class="oe_structure"/>
+           </div>
+           </div>
+        </xpath>     
+       </template>
+       
+       
+       
+       <template id="pdf_reports_custom_header" inherit_id="web.external_layout_standard">
+         <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace">
+           <div t-attf-class='header o_company_#{company.id}_layout'>
+                 
+             <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height:150px;" alt="Logo"/>
+                </div>
+                <div class="col-3 mb4 text-center" style="margin-top:20px;">
+                   <span>
+                      Over 30 years of experience in the
+					  supply of technical equipment 
+					  to demanding industries
+                   </span>
+                </div>
+		        
+             <div class="col-6 text-left">		        
+		 <ul style="list-style:none;line-height:13pt;">
+		   <li><b><span t-field="company.partner_id" style="font-size:20px"/></b></li>
+		   <li><span t-field="company.partner_id.street" style="font-size:12px"/></li>
+		   <li><span t-field="company.partner_id.street2" style="font-size:12px"/></li>
+		   <li><span t-field="company.partner_id.city" style="font-size:12px"/>,
+		   <span t-field="company.partner_id.country_id" style="font-size:12px"/></li>
+		   <li t-if="company.phone">
+		        <i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/> 
+		        <span t-field="company.phone" style="font-size:12px"/></li>
+                  <li t-if="company.email">
+                       <i class="fa fa-at" role="img" aria-label="Email" title="Email"/> 
+                       <span t-field="company.email" style="font-size:12px"/></li>
+                  <li t-if="company.website">
+                       <i class="fa fa-globe" role="img" aria-label="Website" title="Website"/> 
+                       <span t-field="company.website" style="font-size:10px"/></li>
+                       
+		 </ul>
+		 </div>       
+             </div>
+             <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+           </div>
+           
+         </xpath>
+         
+         <!--The Footer-->
+         <xpath expr="//div[@t-attf-class='footer o_standard_footer o_company_#{company.id}_layout']" position="replace">
+            <div class="footer o_standard_footer">
+              <table style="width:100%;margin:0px;">
+                <tr>
+                  <td style="width:50%;">
+                     <span><img src="libitco/static/description/src/img/fleetguard4.jpg" /></span>
+	          </td>
+	          <td style="width:25%;"></td>
+	          <td><span style="font-size:12px">TIN&amp;nbsp;</span><span t-field='company.vat' style="font-size:12px"/></td>
+                </tr>     
+             </table>
+            </div>
+
+         </xpath>  
+       </template>
+   
+       <template inherit_id="web.external_layout_background" id="jil_inherit_code">
+           <xpath expr="//div[@t-attf-class='o_company_#{company.id}_layout header']" position="replace">
+              <div t-attf-class="o_company_#{company.id}_layout header">
+                  <div class="o_background_header">
+       		<div class="row">
+       		   <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 145px;" alt="Logo"/>
+                </div>
+                <div class="col-3 mb4 text-center" style="margin-top:20px;">
+                   <span>
+                      Over 30 years of experience in the
+					  supply of technical equipment 
+					  to demanding industries
+                   </span>
+	   </div>
+	   <div class="col-6 text-left">
+		 <ul style="list-style:none;line-height:13pt;">
+		   <li><b><span t-field="company.partner_id" style="font-size:18px"/></b></li>
+		   <li><span t-field="company.partner_id.street" style="font-size:12px"/></li>
+		   <li><span t-field="company.partner_id.street2" style="font-size:12px"/></li>
+		   <li><span t-field="company.partner_id.city" style="font-size:12px"/>,
+		   <span t-field="company.partner_id.country_id" style="font-size:12px"/></li>
+		   <li t-if="company.phone">
+		        <i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/>
+		        <span t-field="company.phone" style="font-size:12px"/></li>
+                  <li t-if="company.email">
+                       <i class="fa fa-at" role="img" aria-label="Email" title="Email"/>
+                       <span t-field="company.email" style="font-size:12px"/></li>
+                  <li t-if="company.website">
+                       <i class="fa fa-globe" role="img" aria-label="Website" title="Website"/>
+                       <span t-field="company.website" style="font-size:10px"/></li>
+                  <li><span style="font-size:12px">TIN&amp;nbsp;</span><span t-field='company.vat' style="font-size:12px"/></li>
+		 </ul>
+		 </div>
+       		</div>           
+                  </div>
+              </div>
+           </xpath>
+           <xpath expr="//div[@t-attf-class='o_company_#{company.id}_layout footer o_background_footer']" position="replace">
+             <div class="footer o_standard_footer">
+             <table>
+                <tr style="width:100%;margin:0px;">
+                  <td>
+                     <span><img src="libitco/static/description/src/img/fleetguard4.jpg"/></span>
+                  </td>
+                </tr>     
+             </table>
+             </div>
+           </xpath>
+       </template>
+       
+       
+       
+   
+   </data>
+</odoo>
