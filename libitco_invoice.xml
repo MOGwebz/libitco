@@ -110,14 +110,14 @@
                                 <th class="text-center" style="padding-bottom:15px;"><span>Item Description</span></th>
                                 <th class="d-none text-center" style="padding-bottom:15px;"><span>Source Document</span></th>
                                 <th class="text-center" style="padding-bottom:15px;"><span>Quantity</span></th>
-				<th style="padding-bottom:5px;" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span><br/><span>(<span t-field="o.currency_id"/>)</span></th>
+				<th style="padding-bottom:5px;" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Unit Price</span><br/><span>(UGX)</span></th>
                                 <!--th t-if="display_discount" t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                     <span>Disc.(%)</span>
                                     <t t-set="colspan" t-value="colspan+1"/>
                                 </th-->
                                 <!--th t-attf-class="text-center {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Taxes</span></th-->
                                 <th class="text-center">
-					<span style="padding-bottom:5px;" groups="account.group_show_line_subtotals_tax_excluded">Total</span><br/><span>(<span t-field="o.currency_id"/>)</span>
+					<span style="padding-bottom:5px;" groups="account.group_show_line_subtotals_tax_excluded">Total</span><br/><span>(UGX)</span>
                                     <span style="padding-bottom:5px;" groups="account.group_show_line_subtotals_tax_included">Total Price</span>
                                 </th>
                             </tr>
@@ -142,13 +142,7 @@
                                         </td>
                                         <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
 						<!--span t-field="line.price_unit"/-->
-
-                        <t t-if="o.currency_id.name == 'UGX'"/>
-					        <span t-esc="'{:,.0f}'.format(line.price_unit)"/>
-                        </t>
-                        <t t-else=""/>
-                            <span t-esc="'{:,.2f}'.format(line.price_unit)"/>
-                        </t>
+					    <span t-esc="'{:,.0f}'.format(line.price_unit)"/>
                                         </td>
                                         <!--td t-if="display_discount" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
                                             <span t-field="line.discount"/>
@@ -156,14 +150,9 @@
                                         
                                         
                                         <td class="text-right o_price_total">
-                        <t t-if="o.currency_id.name == 'UGX'"/>
-					        <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
-					    </t>
-                        <t t-else=""/>
-                            <span t-esc="'{:,.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
-                        </t>
-                        
-                        <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+					
+					    <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+					    <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
                                             
                                         </td>
                                     </t>
