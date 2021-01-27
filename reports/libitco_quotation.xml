@@ -180,8 +180,8 @@
                         <ul style="list-style:none;text-align:left;">
                             <li>
                                 <strong>Payment Terms:</strong>
-                                <span style="margin-left:10px;" t-if="o.invoice_payment_term_id">
-                                    <span t-field="o.invoice_payment_term_id.name"/>
+                                <span style="margin-left:10px;" t-if="doc.payment_term_id">
+                                    <span t-field="doc.payment_term_id.name"/>
                                 </span>
                             </li>
                             <li>

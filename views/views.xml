@@ -61,7 +61,7 @@
          </xpath>
          <xpath expr="//group[@name='note_group']" position="after">
             <group>
-              <field name="note"/>
+              <field name="note1" widget="html"/>
             </group>
          </xpath>
       </field>

@@ -116,7 +116,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     exclude_fleetguard = fields.Boolean('Exclude FleetGuard Number from Print Out?')
-    note = fields.Html('NOTE:', default="""
+    note1 = fields.Html('NOTE:', default="""
                 <ul>  
                     <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
                     <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
