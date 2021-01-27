@@ -178,10 +178,9 @@
                     </tbody>
                  </table>
                  
-                <!-- <div class="clearfix" name="so_total_summary"> -->
+                <div class="clearfix" name="so_total_summary">
                 <div id="total" class="row" name="total">
-                <!-- <div class="row"> -->
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <ul style="list-style:none;text-align:left;">
                             <li>
                                 <strong>Payment Terms:</strong>
@@ -198,9 +197,8 @@
                                 <span style="margin-left:0px;">From Stock</span>
                             </li>
                         </ul>
-                    </div>
-                    <!-- <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"> -->
-                    <div class="offset-md-4 col-md-4">
+                    </div> -->
+                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
                         <table class="table" style="background-color:#ADD8E6;">
                             <tr>
                                 <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
@@ -251,7 +249,7 @@
                             </tr>
                         </table>
                     </div>
-                <!-- </div> -->
+                </div>
                 </div>
                  
                  <div class="row">
