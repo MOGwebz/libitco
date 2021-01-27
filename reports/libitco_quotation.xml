@@ -176,18 +176,36 @@
                  
                 <div class="clearfix" name="so_total_summary">
                 <div id="total" class="row" name="total">
+                    <div class="col-md-4">
+                        <ul style="list-style:none;text-align:left;">
+                            <li>
+                                <strong>Payment Terms:</strong>
+                                <span style="margin-left:10px;" t-if="o.invoice_payment_term_id">
+                                    <span t-field="o.invoice_payment_term_id.name"/>
+                                </span>
+                            </li>
+                            <li>
+                                <strong>Delivery Term:</strong>
+                                <span style="margin-left:10px;">Ex-Works our Warehouse</span>
+                            </li>
+                            <li>
+                                <strong>Delivery Time:</strong>
+                                <span style="margin-left:10px;">From Stock</span>
+                            </li>
+                        </ul>
+                    </div>
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
                         <table class="table" style="background-color:#ADD8E6;">
                             <tr>
                                 <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
                                 <td name="td_amount_untaxed" class="text-right">
-					<!--span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/-->
-                    <t t-if="doc.currency_id.name == 'UGX'">
-					    <span t-esc="'{:,.0f}'.format(doc.amount_untaxed)"/>
-                    </t>
-                    <t t-else="">
-                        <span t-esc="'{:,.2f}'.format(doc.amount_untaxed)"/>
-                    </t>
+                                <!--span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/-->
+                                <t t-if="doc.currency_id.name == 'UGX'">
+                                    <span t-esc="'{:,.0f}'.format(doc.amount_untaxed)"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{:,.2f}'.format(doc.amount_untaxed)"/>
+                                </t>
                                 </td>
                             </tr>
                             <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
@@ -197,31 +215,32 @@
                                             <span>VAT 18%</span>
                                         </td>
                                         <td name="td_amount_by_group_3" class="text-right o_price_total">
-						<span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
-						<!--span t-esc="'{:,.0f}'.format(amount_by_group[1])"/-->
+						                    <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+						                <!--span t-esc="'{:,.0f}'.format(amount_by_group[1])"/-->
                                         </td>
                                     </t>
                                     <t t-else="">
-                                        <td name="td_amount_by_group_label">
-						<!--span t-esc="amount_by_group[0]" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/-->
-						<!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[0])"/-->
+                                        <td name="td_amount_by_group_label_3">
+                                            <span>VAT 18%</span>
+                                        <!--span t-esc="amount_by_group[0]" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/-->
+                                        <!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[0])"/-->
                                         </td>
                                         <td name="td_amount_by_group" class="text-right o_price_total">
-						<span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
-						<!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[1])"/-->
+                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                            <!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[1])"/-->
                                         </td>
                                     </t>
                                 </tr>
-			      </t>
+			                </t>
                             <tr class="border-black">
                                 <td><strong>Total</strong></td>
                                 <td name="td_amount_total" class="text-right">
-                     <t t-if="doc.currency_id.name == 'UGX'">
-				        <span t-esc="'{:,.0f}'.format(doc.amount_total)"/>
-                     </t>
-                     <t t-else="">
-                        <span t-esc="'{:,.2f}'.format(doc.amount_total)"/>
-                     </t>
+                                    <t t-if="doc.currency_id.name == 'UGX'">
+                                        <span t-esc="'{:,.0f}'.format(doc.amount_total)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{:,.2f}'.format(doc.amount_total)"/>
+                                    </t>
                                 </td>
                             </tr>
                         </table>
@@ -235,14 +254,16 @@
                  
                     <span><strong><u>NOTE:</u></strong></span><br/>
                     
-                    <ul>
+                    <!-- <ul>
                     
                         <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
                         <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
                         <li>Prices are in <span t-field="doc.currency_id"/>, excl VAT, ex works our Kampala warehouse. <span t-field="doc.currency_id"/> prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
 
                     </ul>
-                    <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>                 
+                    <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>      
+                                -->
+                        <span t-raw="doc.note"/>
                  </div>
                  
                  
