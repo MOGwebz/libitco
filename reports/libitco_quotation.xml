@@ -178,8 +178,9 @@
                     </tbody>
                  </table>
                  
-                <div class="clearfix" name="so_total_summary">
-                <div id="total" class="row" name="total">
+                <!-- <div class="clearfix" name="so_total_summary"> -->
+                <!-- <div id="total" class="row" name="total"> -->
+                <div class="row">
                     <div class="col-md-4">
                         <ul style="list-style:none;text-align:left;">
                             <li>
@@ -250,7 +251,7 @@
                             </tr>
                         </table>
                     </div>
-                </div>
+                <!-- </div> -->
             </div>
                  
                  <div class="row">
