@@ -176,24 +176,7 @@
                  
                 <div class="clearfix" name="so_total_summary">
                 <div id="total" class="row" name="total">
-                    <div class="col-md-4">
-                        <ul style="list-style:none;text-align:left;">
-                            <li>
-                                <strong>Payment Terms:</strong>
-                                <span style="margin-left:10px;" t-if="doc.payment_term_id">
-                                    <span t-field="doc.payment_term_id.name"/>
-                                </span>
-                            </li>
-                            <li>
-                                <strong>Delivery Term:</strong>
-                                <span style="margin-left:10px;">Ex-Works our Warehouse</span>
-                            </li>
-                            <li>
-                                <strong>Delivery Time:</strong>
-                                <span style="margin-left:10px;">From Stock</span>
-                            </li>
-                        </ul>
-                    </div>
+                    
                     <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
                         <table class="table" style="background-color:#ADD8E6;">
                             <tr>
@@ -248,8 +231,26 @@
                 </div>
             </div>
                  
-                 
-                 
+                 <div class="row">
+                    <div class="col-md-4">
+                            <ul style="list-style:none;text-align:left;">
+                                <li>
+                                    <strong>Payment Terms:</strong>
+                                    <span style="margin-left:10px;" t-if="doc.payment_term_id">
+                                        <span t-field="doc.payment_term_id.name"/>
+                                    </span>
+                                </li>
+                                <li>
+                                    <strong>Delivery Term:</strong>
+                                    <span style="margin-left:10px;">Ex-Works our Warehouse</span>
+                                </li>
+                                <li>
+                                    <strong>Delivery Time:</strong>
+                                    <span style="margin-left:10px;">From Stock</span>
+                                </li>
+                            </ul>
+                    </div>
+                 </div>
                  <div>
                  
                     <span><strong><u>NOTE:</u></strong></span><br/>
@@ -263,7 +264,7 @@
                     </ul>
                     <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>      
                                 -->
-                        <span t-raw="doc.note"/>
+                        <span t-field="doc.note"/>
                  </div>
                  
                  
