@@ -116,10 +116,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     exclude_fleetguard = fields.Boolean('Exclude FleetGuard Number from Print Out?')
-    note = fields.Html('NOTE:', default=_get_default_note)
-
-    def _get_default_note(self):
-        result = """
+    note = fields.Html('NOTE:', default="""
                 <ul>  
                     <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
                     <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
@@ -127,6 +124,17 @@ class SaleOrder(models.Model):
 
                 </ul>
                 <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>
-            """
+                """)
 
-        return result
+    # def _get_default_note(self):
+    #     result = """
+    #             <ul>  
+    #                 <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
+    #                 <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
+    #                 <li>Prices are in UGX, excl VAT, ex works our Kampala warehouse. UGX prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
+
+    #             </ul>
+    #             <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>
+    #             """
+
+    #     return result
