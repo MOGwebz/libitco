@@ -72,11 +72,13 @@
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
 		          <th class="text-left" style="width:13.3%;"><span>Your</span><br/><span>P/N</span></th>
                           <th class="text-left" style="width:30.3%;padding-bottom:35px;">Description</th>
-			  <th class="text-left" style="width:11.3%;"><span>FleetGuard</span><br/><span>P/N</span></th>
+              <t t-if="not doc.exclude_fleetguard">
+			    <th class="text-left" style="width:11.3%;"><span>FleetGuard</span><br/><span>P/N</span></th>
+              </t>
 			  <th class="text-center" style="width:8.3%;padding-bottom:35px;;">QTY</th>
 			  <th class="text-left" style="width:8.3%"><span>Stock</span><br/><span>Kla</span></th>
-			  <th class="text-center" style="width:14.3%"><span>UNIT</span><br/><span>UGX</span></th>
-			  <th class="text-center" style="width:14.3%"><span>TOTAL</span><br/><span>UGX</span></th>
+			  <th class="text-center" style="width:14.3%"><span>UNIT</span><br/><span><span t-field="doc.currency_id"/></span></th>
+			  <th class="text-center" style="width:14.3%"><span>TOTAL</span><br/><span><span t-field="doc.currency_id"/></span></th>
                           
                        </tr>
                     </thead>
@@ -98,9 +100,11 @@
                             </td>
                             <t t-if="not line.display_type">
                                 <td style="width:30.3%"><span t-field="line.product_id.description_sale"/></td>
-                                <td style="width:11.3%">
-                                  <span t-field='line.product_id.name'/>
-                                </td>
+                                <t t-if="not doc.exclude_fleetguard">
+                                    <td style="width:11.3%">
+                                    <span t-field='line.product_id.name'/>
+                                    </td>
+                                </t>
                                 <td style="width:8.3%" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
@@ -119,8 +123,18 @@
                                <td class="text-center o_price_total" style="width:14.3%">
                                     <!--span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/-->
 				    <!--span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/-->
-				    <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
-				    <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                    <t t-if="doc.currency_id.name == 'UGX'">
+				        <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+                    </t>
+                    <t t-else="">
+                        <span t-esc="'{:,.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+                    </t>
+                    <t t-if="doc.currency_id.name == 'UGX'">
+				        <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                    </t>
+                    <t t-else="">
+                        <span t-esc="'{:,.2f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                    </t>
                                 </td>
                                 <!--td  class="text-center" style="width:14.3%">
                                   <t t-if="line.avail">
@@ -168,7 +182,12 @@
                                 <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
                                 <td name="td_amount_untaxed" class="text-right">
 					<!--span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/-->
-					<span t-esc="'{:,.0f}'.format(doc.amount_untaxed)"/>
+                    <t t-if="doc.currency_id.name == 'UGX'">
+					    <span t-esc="'{:,.0f}'.format(doc.amount_untaxed)"/>
+                    </t>
+                    <t t-else="">
+                        <span t-esc="'{:,.2f}'.format(doc.amount_untaxed)"/>
+                    </t>
                                 </td>
                             </tr>
                             <t t-foreach="doc.amount_by_group" t-as="amount_by_group">
@@ -197,7 +216,12 @@
                             <tr class="border-black">
                                 <td><strong>Total</strong></td>
                                 <td name="td_amount_total" class="text-right">
-				     <span t-esc="'{:,.0f}'.format(doc.amount_total)"/>
+                     <t t-if="doc.currency_id.name == 'UGX'">
+				        <span t-esc="'{:,.0f}'.format(doc.amount_total)"/>
+                     </t>
+                     <t t-else="">
+                        <span t-esc="'{:,.2f}'.format(doc.amount_total)"/>
+                     </t>
                                 </td>
                             </tr>
                         </table>
@@ -215,7 +239,7 @@
                     
                         <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
                         <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
-                        <li>Prices are in UGX, excl VAT, ex works our Kampala warehouse. UGX prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
+                        <li>Prices are in <span t-field="doc.currency_id"/>, excl VAT, ex works our Kampala warehouse. <span t-field="doc.currency_id"/> prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
 
                     </ul>
                     <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>                 

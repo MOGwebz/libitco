@@ -162,9 +162,12 @@
                         <t t-else="">
                             <span t-esc="'{:,.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
                         </t>
-                        
-                        <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
-                                            
+                        <t t-if="o.currency_id.name == 'UGX'">
+                            <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="'{:,.2f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                        </t>                  
                                         </td>
                                     </t>
                                     <t t-if="line.display_type == 'line_section'">
@@ -186,7 +189,12 @@
                                         <td colspan="99">
                                             <strong class="mr16">Subtotal</strong>
 					    <!--span t-esc="current_subtotal" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/-->
-					    <span t-esc="'{:,.0f}'.format(current_subtotal)"/>
+					    <t t-if="o.currency_id.name == 'UGX'">
+                            <span t-esc="'{:,.0f}'.format(current_subtotal)"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="'{:,.2f}'.format(current_subtotal)"/>
+                        </t>
                                         </td>
                                     </tr>
                                 </t>
@@ -204,7 +212,12 @@
                                         <td><strong>Subtotal</strong></td>
                                         <td class="text-right">
 						<!--span t-field="o.amount_untaxed"/-->
-						<span t-esc="'{:,.0f}'.format(o.amount_untaxed)"/>
+                        <t t-if="o.currency_id.name == 'UGX'">
+						    <span t-esc="'{:,.0f}'.format(o.amount_untaxed)"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="'{:,.2f}'.format(o.amount_untaxed)"/>
+                        </t>
                                         </td>
                                     </tr>
                                     <t t-foreach="o.amount_by_group" t-as="amount_by_group">
@@ -236,7 +249,12 @@
                                         <td><strong>Payable</strong></td>
                                         <td class="text-right">
 						<!--span t-field="o.amount_total"/-->
-						<span t-esc="'{:,.0f}'.format(o.amount_total)"/>
+                        <t t-if="o.currency_id.name == 'UGX'">
+						    <span t-esc="'{:,.0f}'.format(o.amount_total)"/>
+                        </t>
+                        <t t-else="">
+                            <span t-esc="'{:,.2f}'.format(o.amount_total)"/>
+                        </t>
                                         </td>
                                     </tr>
                                 </table>
@@ -289,8 +307,13 @@
 			     </ul-->
 			     <span>Bank Name:<strong><span t-field="o.banking_details" style="margin-left:41px;text-align:right"/></strong></span><br/>
 			     <span>Beneficiary:<strong><span t-field="o.account_name" style="margin-left:43px;text-align:right"/></strong></span><br/>
-			     <span>UGX ACC No:<strong><span t-field="o.account_number" style="margin-left:30px;text-align:right"/></strong></span><br/>
-			     <span>Swift Code:<strong><span t-field="o.swft_code" style="margin-left:46px;text-align:right"/></strong></span><br/>
+			     <t t-if="o.currency_id.name == 'UGX'">
+                    <span>UGX ACC No:<strong><span t-field="o.account_number" style="margin-left:30px;text-align:right"/></strong></span><br/>
+			     </t>
+                 <t t-else="">
+                    <span>USD ACC No:<strong><span t-field="o.usd_numb" style="margin-left:30px;text-align:right"/></strong></span><br/>
+                 </t>
+                 <span>Swift Code:<strong><span t-field="o.swft_code" style="margin-left:46px;text-align:right"/></strong></span><br/>
 			     <span>Branch:<strong><span t-field="o.branch" style="margin-left:73px;text-align:right"/></strong></span>
                          
                          </td>

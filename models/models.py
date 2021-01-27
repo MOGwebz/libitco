@@ -111,3 +111,8 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     jil_signature = fields.Binary(related='user_id.jil_signature')                               
+
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+
+    exclude_fleetguard = fields.Boolean('Exclude FleetGuard Number from Print Out?')
