@@ -70,15 +70,21 @@
                     <thead>
                        <tr style="background-color:#ADD8E6;">
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
-		          <th class="text-left" style="width:13.3%;"><span>Your</span><br/><span>P/N</span></th>
-                          <th class="text-left" style="width:30.3%;padding-bottom:35px;">Description</th>
-              <t t-if="not doc.exclude_fleetguard">
-			    <th class="text-left" style="width:11.3%;"><span>FleetGuard</span><br/><span>P/N</span></th>
-              </t>
-			  <th class="text-center" style="width:8.3%;padding-bottom:35px;;">QTY</th>
-			  <th class="text-left" style="width:8.3%"><span>Stock</span><br/><span>Kla</span></th>
-			  <th class="text-center" style="width:14.3%"><span>UNIT</span><br/><span><span t-field="doc.currency_id"/></span></th>
-			  <th class="text-center" style="width:14.3%"><span>TOTAL</span><br/><span><span t-field="doc.currency_id"/></span></th>
+                        <t t-if="not doc.exclude_part_no">
+                            <th class="text-left" style="width:13.3%;"><span>Your</span><br/><span>P/N</span></th>
+                        </t>
+                        <th class="text-left" style="width:30.3%;padding-bottom:35px;">Description</th>
+
+                        <t t-if="not doc.exclude_fleetguard">
+                            <th class="text-left" style="width:11.3%;"><span>FleetGuard</span><br/><span>P/N</span></th>
+                        </t>
+                        <t t-else="">
+                            <th class="text-left" style="width:11.3%;"><span>Product</span></th>
+                        </t>
+                        <th class="text-center" style="width:8.3%;padding-bottom:35px;;">QTY</th>
+                        <th class="text-left" style="width:8.3%"><span>Stock</span><br/><span>Kla</span></th>
+                        <th class="text-center" style="width:14.3%"><span>UNIT</span><br/><span><span t-field="doc.currency_id"/></span></th>
+                        <th class="text-center" style="width:14.3%"><span>TOTAL</span><br/><span><span t-field="doc.currency_id"/></span></th>
                           
                        </tr>
                     </thead>
@@ -95,16 +101,14 @@
                             <!--td style="padding:5px;border:1px solid;">
                               <span t-field="line.sequence"/>
                             </td-->
-                            <td style="width:13.3%">
-                              <span t-field='line.yrprtno'/>
-                            </td>
+                            <t t-if="not doc.exclude_part_no"> 
+                                <td style="width:13.3%">
+                                <span t-field='line.yrprtno'/>
+                                </td>
+                            </t>
                             <t t-if="not line.display_type">
-                                <td style="width:30.3%"><span t-field="line.product_id.description_sale"/></td>
-                                <t t-if="not doc.exclude_fleetguard">
-                                    <td style="width:11.3%">
-                                    <span t-field='line.product_id.name'/>
-                                    </td>
-                                </t>
+                                <td style="width:30.3%"><span t-field="line.product_id.description_sale"/></td>                              
+                                <td style="width:11.3%"><span t-field='line.product_id.name'/></td>                               
                                 <td style="width:8.3%" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
@@ -176,8 +180,26 @@
                  
                 <div class="clearfix" name="so_total_summary">
                 <div id="total" class="row" name="total">
-                    
-                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto">
+                    <div class="col-md-4">
+                        <ul style="list-style:none;text-align:left;">
+                            <li>
+                                <strong>Payment Terms:</strong>
+                                <span style="margin-left:0px;" t-if="doc.payment_term_id">
+                                    <span t-field="doc.payment_term_id.name"/>
+                                </span>
+                            </li>
+                            <li>
+                                <strong>Delivery Term:</strong>
+                                <span style="margin-left:0px;">Ex-Works our Warehouse</span>
+                            </li>
+                            <li>
+                                <strong>Delivery Time:</strong>
+                                <span style="margin-left:0px;">From Stock</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- <div t-attf-class="#{'col-4' if report_type != 'html' else 'col-sm-7 col-md-5'} ml-auto"> -->
+                    <div class="offset-md-4 col-md-4">
                         <table class="table" style="background-color:#ADD8E6;">
                             <tr>
                                 <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
@@ -232,26 +254,9 @@
             </div>
                  
                  <div class="row">
-                    <div class="col-md-4">
-                            <ul style="list-style:none;text-align:left;">
-                                <li>
-                                    <strong>Payment Terms:</strong>
-                                    <span style="margin-left:0px;" t-if="doc.payment_term_id">
-                                        <span t-field="doc.payment_term_id.name"/>
-                                    </span>
-                                </li>
-                                <li>
-                                    <strong>Delivery Term:</strong>
-                                    <span style="margin-left:0px;">Ex-Works our Warehouse</span>
-                                </li>
-                                <li>
-                                    <strong>Delivery Time:</strong>
-                                    <span style="margin-left:0px;">From Stock</span>
-                                </li>
-                            </ul>
-                    </div>
+                    
                  </div>
-                 <br/>
+                 <!-- <br/> -->
                  <div>
                  
                     <span><strong><u>NOTE:</u></strong></span><br/>

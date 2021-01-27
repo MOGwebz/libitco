@@ -115,7 +115,8 @@ class HrEmployee(models.Model):
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    exclude_fleetguard = fields.Boolean('Exclude FleetGuard Number from Print Out?')
+    exclude_fleetguard = fields.Boolean('Not a Fleetuard Product?')
+    exclude_part_no = fields.Boolean('Exclude Your P/N?')
     note1 = fields.Html('NOTE:', default="""
                 <ul>  
                     <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
