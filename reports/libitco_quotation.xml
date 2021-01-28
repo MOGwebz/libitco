@@ -71,7 +71,7 @@
                        <tr style="background-color:#ADD8E6;">
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
                         <t t-if="not doc.exclude_part_no">
-                            <th class="text-center" style="width:90px;"><span>Your</span> <span>P/N</span></th>
+                            <th class="text-left" style="width:90px;"><span>Your</span> <span>P/N</span></th>
                         </t>
 
                         <t t-if="not doc.exclude_fleetguard">
@@ -109,12 +109,12 @@
                                 </td>
                             </t>
                             <t t-if="not line.display_type">
-                                <td style="width:11.3%"><span t-field='line.product_id.name'/></td>
-                                <td style="width:30.3%"><span t-field="line.product_id.description_sale"/></td>                              
-                                <td style="width:8.3%" class="text-center">
+                                <td class="text-center" ><span t-field='line.product_id.name'/></td>
+                                <td class="text-center" ><span t-field="line.product_id.description_sale"/></td>                              
+                                <td class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
-                                <td  class="text-center" style="width:8.3%">
+                                <td  class="text-center" >
                                   <t t-if="line.avail">
                                      <span>Yes</span>
                                   </t>
@@ -123,7 +123,7 @@
                                   </t>
                                 </td>
 
-                                <td class="text-center" style="width:14.3%">
+                                <td class="text-center" >
                                     <t t-if="doc.currency_id.name == 'UGX'">
                                         <span t-esc="'{:,.0f}'.format(line.price_unit)" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
                                     </t>
@@ -131,7 +131,7 @@
                                         <span t-esc="'{:,.2f}'.format(line.price_unit)" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
                                     </t>
                                 </td>   
-                               <td class="text-right o_price_total" style="width:14.3%">
+                               <td class="text-right o_price_total" >
                                     <!--span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/-->
                                     <!--span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/-->
                                     <t t-if="doc.currency_id.name == 'UGX'">
