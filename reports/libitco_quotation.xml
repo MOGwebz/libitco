@@ -66,7 +66,7 @@
              
                  
              
-                 <table class="table" style="margin-top:20px;">
+                 <table class="table" style="margin-top:20px;table-layout:fixed;width:100%">
                     <thead>
                        <tr style="background-color:#ADD8E6;">
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
@@ -75,7 +75,7 @@
                         </t>
 
                         <t t-if="not doc.exclude_fleetguard">
-                            <th class="text-left" style="width:170px;"><span>FleetGuard</span> <span>P/N</span></th>
+                            <th class="text-left" style="width:200px;"><span>FleetGuard</span> <span>P/N</span></th>
                         </t>
                         <t t-else="">
                             <th class="text-left" style="width:160px;"><span>Product</span></th>
