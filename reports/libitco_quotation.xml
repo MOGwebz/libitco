@@ -71,20 +71,20 @@
                        <tr style="background-color:#ADD8E6;">
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
                         <t t-if="not doc.exclude_part_no">
-                            <th class="text-left" style="width:13.3%;"><span>Your</span> <span>P/N</span></th>
+                            <th class="text-left" style="width:90px;"><span>Your</span> <span>P/N</span></th>
                         </t>
-                        <th class="text-left" style="width:30.3%;padding-bottom:35px;">Description</th>
+                        <th class="text-left" style="width:160px;">Description</th>
 
                         <t t-if="not doc.exclude_fleetguard">
-                            <th class="text-left" style="width:11.3%;"><span>FleetGuard</span> <span>P/N</span></th>
+                            <th class="text-left" style="width:160px;"><span>FleetGuard</span> <span>P/N</span></th>
                         </t>
                         <t t-else="">
-                            <th class="text-left" style="width:11.3%;"><span>Product</span></th>
+                            <th class="text-left" style="width:160px;"><span>Product</span></th>
                         </t>
-                        <th class="text-center" style="width:8.3%;padding-bottom:35px;;">QTY</th>
-                        <th class="text-left" style="width:8.3%"><span>Stock</span> <span>Kla</span></th>
-                        <th class="text-center" style="width:14.3%"><span>UNIT</span> <span><span t-field="doc.currency_id"/></span></th>
-                        <th class="text-center" style="width:14.3%"><span>TOTAL</span> <span><span t-field="doc.currency_id"/></span></th>
+                        <th class="text-center" style="width:50px;">QTY</th>
+                        <th class="text-left" style="width:95px"><span>Stock</span> <span>Kla</span></th>
+                        <th class="text-center" style="width:110px"><span>UNIT</span> <span><span t-field="doc.currency_id"/></span></th>
+                        <th class="text-center" style="width:110px"><span>TOTAL</span> <span><span t-field="doc.currency_id"/></span></th>
                           
                        </tr>
                     </thead>
