@@ -73,7 +73,6 @@
                         <t t-if="not doc.exclude_part_no">
                             <th class="text-left" style="width:90px;"><span>Your</span> <span>P/N</span></th>
                         </t>
-                        <th class="text-left" style="width:160px;">Description</th>
 
                         <t t-if="not doc.exclude_fleetguard">
                             <th class="text-left" style="width:160px;"><span>FleetGuard</span> <span>P/N</span></th>
@@ -81,8 +80,11 @@
                         <t t-else="">
                             <th class="text-left" style="width:160px;"><span>Product</span></th>
                         </t>
+
+                        <th class="text-left" style="width:160px;">Description</th>
+
                         <th class="text-center" style="width:50px;">QTY</th>
-                        <th class="text-left" style="width:95px"><span>Stock</span> <span>Kla</span></th>
+                        <th class="text-left" style="width:110px"><span>Stock</span> <span>Kla</span></th>
                         <th class="text-center" style="width:110px"><span>UNIT</span> <span><span t-field="doc.currency_id"/></span></th>
                         <th class="text-center" style="width:110px"><span>TOTAL</span> <span><span t-field="doc.currency_id"/></span></th>
                           
@@ -224,7 +226,7 @@
                                             <span>VAT 18%</span>
                                         </td>
                                         <td name="td_amount_by_group_3" class="text-right o_price_total">
-						                    <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+						                    <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
 						                <!--span t-esc="'{:,.0f}'.format(amount_by_group[1])"/-->
                                         </td>
                                     </t>
@@ -235,7 +237,7 @@
                                         <!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[0])"/-->
                                         </td>
                                         <td name="td_amount_by_group" class="text-right o_price_total">
-                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                            <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;}"/>
                                             <!--span t-esc="'{:,.0f}'.format(doc.amount_by_group[1])"/-->
                                         </td>
                                     </t>
