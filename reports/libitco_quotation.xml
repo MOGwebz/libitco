@@ -71,20 +71,20 @@
                        <tr style="background-color:#ADD8E6;">
                           <!--th style="padding:5px;border:1px solid;">lt</th-->
                         <t t-if="not doc.exclude_part_no">
-                            <th class="text-left" style="width:13.3%;"><span>Your</span><br/><span>P/N</span></th>
+                            <th class="text-left" style="width:13.3%;"><span>Your</span> <span>P/N</span></th>
                         </t>
                         <th class="text-left" style="width:30.3%;padding-bottom:35px;">Description</th>
 
                         <t t-if="not doc.exclude_fleetguard">
-                            <th class="text-left" style="width:11.3%;"><span>FleetGuard</span><br/><span>P/N</span></th>
+                            <th class="text-left" style="width:11.3%;"><span>FleetGuard</span> <span>P/N</span></th>
                         </t>
                         <t t-else="">
                             <th class="text-left" style="width:11.3%;"><span>Product</span></th>
                         </t>
                         <th class="text-center" style="width:8.3%;padding-bottom:35px;;">QTY</th>
-                        <th class="text-left" style="width:8.3%"><span>Stock</span><br/><span>Kla</span></th>
-                        <th class="text-center" style="width:14.3%"><span>UNIT</span><br/><span><span t-field="doc.currency_id"/></span></th>
-                        <th class="text-center" style="width:14.3%"><span>TOTAL</span><br/><span><span t-field="doc.currency_id"/></span></th>
+                        <th class="text-left" style="width:8.3%"><span>Stock</span> <span>Kla</span></th>
+                        <th class="text-center" style="width:14.3%"><span>UNIT</span> <span><span t-field="doc.currency_id"/></span></th>
+                        <th class="text-center" style="width:14.3%"><span>TOTAL</span> <span><span t-field="doc.currency_id"/></span></th>
                           
                        </tr>
                     </thead>
@@ -107,8 +107,8 @@
                                 </td>
                             </t>
                             <t t-if="not line.display_type">
+                                <td style="width:11.3%"><span t-field='line.product_id.name'/></td>
                                 <td style="width:30.3%"><span t-field="line.product_id.description_sale"/></td>                              
-                                <td style="width:11.3%"><span t-field='line.product_id.name'/></td>                               
                                 <td style="width:8.3%" class="text-center">
                                     <span t-field="line.product_uom_qty"/>
                                 </td>
@@ -122,23 +122,28 @@
                                 </td>
 
                                 <td class="text-center" style="width:14.3%">
-                                    <span t-field="line.price_unit" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                    <t t-if="doc.currency_id.name == 'UGX'">
+                                        <span t-esc="'{:,.0f}'.format(line.price_unit)" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{:,.2f}'.format(line.price_unit)" t-field-options="{&quot;widget&quot;: &quot;False&quot;}"/>
+                                    </t>
                                 </td>   
-                               <td class="text-center o_price_total" style="width:14.3%">
+                               <td class="text-right o_price_total" style="width:14.3%">
                                     <!--span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/-->
-				    <!--span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/-->
-                    <t t-if="doc.currency_id.name == 'UGX'">
-				        <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
-                    </t>
-                    <t t-else="">
-                        <span t-esc="'{:,.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
-                    </t>
-                    <t t-if="doc.currency_id.name == 'UGX'">
-				        <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
-                    </t>
-                    <t t-else="">
-                        <span t-esc="'{:,.2f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
-                    </t>
+                                    <!--span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/-->
+                                    <t t-if="doc.currency_id.name == 'UGX'">
+                                        <span t-esc="'{:,.0f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{:,.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    </t>
+                                    <t t-if="doc.currency_id.name == 'UGX'">
+                                        <span t-esc="'{:,.0f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{:,.2f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                                    </t>
                                 </td>
                                 <!--td  class="text-center" style="width:14.3%">
                                   <t t-if="line.avail">
