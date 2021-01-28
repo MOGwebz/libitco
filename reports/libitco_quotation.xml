@@ -75,16 +75,16 @@
                         </t>
 
                         <t t-if="not doc.exclude_fleetguard">
-                            <th class="text-left" style="width:160px;"><span>FleetGuard</span> <span>P/N</span></th>
+                            <th class="text-left" style="width:170px;"><span>FleetGuard</span> <span>P/N</span></th>
                         </t>
                         <t t-else="">
                             <th class="text-left" style="width:160px;"><span>Product</span></th>
                         </t>
 
-                        <th class="text-left" style="width:160px;">Description</th>
+                        <th class="text-left" style="width:140px;">Description</th>
 
                         <th class="text-center" style="width:50px;">QTY</th>
-                        <th class="text-left" style="width:110px"><span>Stock</span> <span>Kla</span></th>
+                        <th class="text-left" style="width:120px"><span>Stock</span> <span>Kla</span></th>
                         <th class="text-center" style="width:110px"><span>Unit</span> <span><span t-field="doc.currency_id"/></span></th>
                         <th class="text-center" style="width:110px"><span>Total</span> <span><span t-field="doc.currency_id"/></span></th>
                           
