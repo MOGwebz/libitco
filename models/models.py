@@ -130,4 +130,4 @@ class SaleOrder(models.Model):
 class StockValuationLayer(models.Model):
     _inherit = 'stock.valuation.layer'
 
-    customer = fields.Binary(related='stock_move_id.partner_id', string="Customer")
+    customer = fields.Many2one(related='stock_move_id.partner_id', string="Customer")
