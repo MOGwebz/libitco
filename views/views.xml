@@ -128,6 +128,16 @@
          
       </field>
     </record>
+
+    <record model="ir.ui.view" id="stock_valuation_inherit_form">
+      <field name="model">stock.valuation.layer</field>
+      <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='product_id']" position="after">
+          <field name="customer"/>
+        </xpath>
+      </field>
+    </record>
     
     
     

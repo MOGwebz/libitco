@@ -127,15 +127,7 @@ class SaleOrder(models.Model):
                 <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>
                 """)
 
-    # def _get_default_note(self):
-    #     result = """
-    #             <ul>  
-    #                 <li>Items indicated being in stock are available in our warehouse/showroom on the above address</li>
-    #                 <li>Items Indicated as not being in stock are available from the Cummins/ Fleetguard warehouse in Belgium</li>
-    #                 <li>Prices are in UGX, excl VAT, ex works our Kampala warehouse. UGX prices for items not being in stock are valid for future deliveries by sea container. For airfreight solutions we need to quote separate prices.</li>
+class StockValuationLayer(models.Model):
+    _inherit = 'stock.valuation.layer'
 
-    #             </ul>
-    #             <p>We trust to have been of good service with the above and look forward to your favourable reply.</p>
-    #             """
-
-    #     return result
+    customer = fields.Binary(related='stock_move_id.partner_id', string="Customer")

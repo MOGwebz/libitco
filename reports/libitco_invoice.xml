@@ -269,12 +269,12 @@
 		       <div class="col-md-4">
 		         <ul style="list-style:none;text-align:left;">
 				 <li><strong>Payment Terms:</strong>
-				     <span style="margin-left:10px;" t-if="o.invoice_payment_term_id">
+				     <span t-if="o.invoice_payment_term_id">
 				         <span t-field="o.invoice_payment_term_id.name"/>
 				     </span>
 			         </li>
-				 <li><strong>Delivery Term:</strong><span style="margin-left:10px;">Ex-Works our Warehouse</span></li>
-				 <li><strong>Delivery Time:</strong><span style="margin-left:10px;">From Stock</span></li>
+				 <li><strong>Delivery Term:</strong><span >Ex-Works our Warehouse</span></li>
+				 <li><strong>Delivery Time:</strong><span >From Stock</span></li>
 			 </ul>
 		       </div>
 	       </div>
