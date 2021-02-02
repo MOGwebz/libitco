@@ -31,7 +31,7 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'reports/libitco_quotation.xml',
-        # 'reports/libitco_invoice.xml',
+        'reports/libitco_invoice.xml',
         'reports/libitco_delivery.xml',
         #'views/templates.xml',
     ],

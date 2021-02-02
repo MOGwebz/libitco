@@ -131,3 +131,4 @@ class StockValuationLayer(models.Model):
     _inherit = 'stock.valuation.layer'
 
     customer = fields.Many2one(related='stock_move_id.partner_id', string="Customer")
+    vendor = fields.Many2one(related='stock_move_id.picking_partner_id', string="Vendor")
