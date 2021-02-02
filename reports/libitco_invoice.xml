@@ -265,19 +265,20 @@
 
 
 
-               <div class="row">
-		       <div class="col-md-4">
-		         <ul style="list-style:none;text-align:left;margin-left: 0px !important;">
-				 <li style="margin-left: 0px !important;"><strong>Payment Terms:</strong>
-				     <span t-if="o.invoice_payment_term_id" style="margin-left: 0px !important;">
-				         <span t-field="o.invoice_payment_term_id.name"/>
-				     </span>
-			         </li>
-				 <li style="margin-left: 0px !important;"><strong>Delivery Term:</strong><span style="margin-left: 0px !important;">Ex-Works our Warehouse</span></li>
-				 <li style="margin-left: 0px !important;"><strong>Delivery Time:</strong><span style="margin-left: 0px !important;">From Stock</span></li>
-			 </ul>
-		       </div>
-	       </div>
+            <!-- <div class="row"> -->
+                <!-- <div class="col-md-4"> -->
+                <div>
+                    <ul style="list-style:none;text-align:left;margin-left: 0px !important;">
+                        <li style="margin-left: 0px !important;"><strong>Payment Terms:</strong>
+                            <span t-if="o.invoice_payment_term_id" style="margin-left: 0px !important;">
+                                <span t-field="o.invoice_payment_term_id.name"/>
+                            </span>
+                            </li>
+                        <li style="margin-left: 0px !important;"><strong>Delivery Term:</strong><span style="margin-left: 0px !important;">Ex-Works our Warehouse</span></li>
+                        <li style="margin-left: 0px !important;"><strong>Delivery Time:</strong><span style="margin-left: 0px !important;">From Stock</span></li>
+                    </ul>
+                </div>
+	        <!-- </div> -->
 
 
                     <table style="width:100%;min-height:300px;margin-top:15px;">
